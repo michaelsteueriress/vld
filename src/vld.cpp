@@ -764,7 +764,7 @@ UINT32 VisualLeakDetector::getModuleState(ModuleSet::Iterator& it, UINT32& modul
 }
 
 // dbghelp32.dll should be updated in setup folder if you update dbghelp.h
-static char dbghelp32_assert[sizeof(IMAGEHLP_MODULE64) == 3256 ? 1 : -1];
+static char dbghelp32_assert[sizeof(IMAGEHLP_MODULE64) == 3264 ? 1 : -1];
 
 // attachtoloadedmodules - Attaches VLD to all modules contained in the provided
 //   ModuleSet. Not all modules are in the ModuleSet will actually be included
@@ -971,11 +971,11 @@ LPWSTR VisualLeakDetector::buildSymbolSearchPath ()
         }
         delete [] env;
     }
-
-#if _MSC_VER > 1900
+// vs 2019 update 5 msc_ver is 1925
+#if _MSC_VER > 2000 
 #error Not supported VS
 #endif
-    // Append Visual Studio 2015/2013/2012/2010/2008 symbols cache directory.
+    // Append Visual Studio 2019/2017/2015/2013/2012/2010/2008 symbols cache directory.
     for (UINT n = 9; n <= 14; ++n) {
         WCHAR debuggerpath[MAX_PATH] = { 0 };
         swprintf(debuggerpath, _countof(debuggerpath), L"Software\\Microsoft\\VisualStudio\\%u.0\\Debugger", n);
@@ -2709,6 +2709,7 @@ void VisualLeakDetector::SetReportOptions(UINT32 option_mask, CONST WCHAR *filen
     else if ( m_reportFile ) { //Close the previous report file if needed.
         fclose(m_reportFile);
         m_reportFile = NULL;
+        SetReportFile(m_reportFile, m_options & VLD_OPT_REPORT_TO_DEBUGGER, m_options & VLD_OPT_REPORT_TO_STDOUT);
     }
 }
 

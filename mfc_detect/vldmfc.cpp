@@ -230,7 +230,7 @@ BOOL CMFCExampleApp::InitInstance()
 #define MFCDLLNAME   _T("mfc120d.dll")
 #elif _MFC_VER == 0x0D00
 #error MFC version not supported
-#elif _MFC_VER == 0x0E00	// VS 2015
+#elif _MFC_VER == 0x0E00	// VS 2015/2017/2019
 #define MFCDLLNAME   _T("mfc140d.dll")
 #else
 #error MFC version not supported
@@ -250,7 +250,7 @@ BOOL CMFCExampleApp::InitInstance()
 #define MFCDLLNAME   _T("mfc120ud.dll")
 #elif _MFC_VER == 0x0D00
 #error MFC version not supported
-#elif _MFC_VER == 0x0E00	// VS 2015
+#elif _MFC_VER == 0x0E00	// VS 2015/2017/2019
 #define MFCDLLNAME   _T("mfc140ud.dll")
 #else
 #error MFC version not supported
@@ -272,7 +272,7 @@ BOOL CMFCExampleApp::InitInstance()
 #define MFCDLLNAME   _T("mfc120.dll")
 #elif _MFC_VER == 0x0D00
 #error MFC version not supported
-#elif _MFC_VER == 0x0E00	// VS 2015
+#elif _MFC_VER == 0x0E00	// VS 2015/2017/2019
 #define MFCDLLNAME   _T("mfc140.dll")
 #else
 #error MFC version not supported
@@ -292,7 +292,7 @@ BOOL CMFCExampleApp::InitInstance()
 #define MFCDLLNAME   _T("mfc120u.dll")
 #elif _MFC_VER == 0x0D00
 #error MFC version not supported
-#elif _MFC_VER == 0x0E00	// VS 2015
+#elif _MFC_VER == 0x0E00	// VS 2015/2017/2019
 #define MFCDLLNAME   _T("mfc140u.dll")
 #else
 #error MFC version not supported
