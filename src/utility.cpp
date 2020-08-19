@@ -505,7 +505,7 @@ BOOL PatchImport (HMODULE importmodule, moduleentry_t *patchModule)
             IMAGE_DIRECTORY_ENTRY_IMPORT, &size, &section);
     }
 
-    if (idte == NULL) {
+    if ((idte == NULL) || (idte->OriginalFirstThunk == 0)) {
         // This module has no IDT (i.e. it imports nothing).
         return FALSE;
     }
@@ -717,7 +717,8 @@ VOID Print (LPWSTR messagew)
             const size_t MAXMESSAGELENGTH = 5119;
             size_t  count = 0;
             CHAR    messagea [MAXMESSAGELENGTH + 1];
-            if (wcstombs_s(&count, messagea, MAXMESSAGELENGTH + 1, messagew, _TRUNCATE) != 0) {
+            errno_t ret = wcstombs_s(&count, messagea, MAXMESSAGELENGTH + 1, messagew, _TRUNCATE);
+            if (ret != 0 && ret != STRUNCATE) {
                 // Failed to convert the Unicode message to ASCII.
                 assert(FALSE);
                 return;
