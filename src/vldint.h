@@ -188,7 +188,7 @@ class CaptureContext {
 public:
     CaptureContext(void* func, context_t& context, BOOL debug = FALSE, BOOL ucrt = FALSE);
     ~CaptureContext();
-    __forceinline void Set(HANDLE heap, LPVOID mem, LPVOID newmem, SIZE_T size);
+    void Set(HANDLE heap, LPVOID mem, LPVOID newmem, SIZE_T size);
 private:
     // Disallow certain operations
     CaptureContext();

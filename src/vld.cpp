@@ -766,7 +766,7 @@ UINT32 VisualLeakDetector::getModuleState(ModuleSet::Iterator& it, UINT32& modul
 }
 
 // dbghelp32.dll should be updated in setup folder if you update dbghelp.h
-static char dbghelp32_assert[sizeof(IMAGEHLP_MODULE64) == 3264 ? 1 : -1];
+static char dbghelp32_assert[sizeof(IMAGEHLP_MODULE64) == 3264 ? 1 : -1]; //10.0.16299, 3256 for previous (v6.11)
 
 // attachtoloadedmodules - Attaches VLD to all modules contained in the provided
 //   ModuleSet. Not all modules are in the ModuleSet will actually be included
@@ -1921,7 +1921,7 @@ SIZE_T VisualLeakDetector::reportLeaks (heapinfo_t* heapinfo, bool &firstLeak, S
         else
             Report(L"  Call Stack:\n");
         if (info->callStack)
-            info->callStack->dump(m_options & VLD_OPT_TRACE_INTERNAL_FRAMES);
+            info->callStack->dump(m_options & VLD_OPT_TRACE_INTERNAL_FRAMES, m_options & VLD_OPT_SKIP_CRTSTARTUP_LEAKS);
 
         // Dump the data in the user data section of the memory block.
         if (m_maxDataDump != 0) {
