@@ -2519,13 +2519,13 @@ void VisualLeakDetector::DisableModule(HMODULE module)
     ChangeModuleState(module,false);
 }
 
-void VisualLeakDetector::DisableLeakDetection ()
+bool VisualLeakDetector::DisableLeakDetection ()
 {
     tls_t *tls;
 
     if (m_options & VLD_OPT_VLDOFF) {
         // VLD has been turned off.
-        return;
+        return false;
     }
 
     // Disable memory leak detection for the current thread. There are two flags
@@ -2536,6 +2536,8 @@ void VisualLeakDetector::DisableLeakDetection ()
     tls->oldFlags = tls->flags;
     tls->flags &= ~VLD_TLS_ENABLED;
     tls->flags |= VLD_TLS_DISABLED;
+
+    return (tls->oldFlags & VLD_TLS_ENABLED) == VLD_TLS_ENABLED;
 }
 
 void VisualLeakDetector::EnableLeakDetection ()

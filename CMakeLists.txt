@@ -10,6 +10,25 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(vld SHARED)
+
+if (CMAKE_VS_PLATFORM_NAME STREQUAL "Win32")
+    set_target_properties(vld
+        PROPERTIES SUFFIX "_x86.dll"
+                   EXPORT_NAME "vld_x86.lib"
+                   LIBRARY_OUTPUT_NAME "vld_x86.lib"
+                   #COMPILE_PDB_NAME "vld_x86"
+    )
+endif()
+
+if (CMAKE_VS_PLATFORM_NAME STREQUAL "x64")
+    set_target_properties(vld
+        PROPERTIES SUFFIX "_x64.dll"
+                   EXPORT_NAME "vld__x64.lib"
+                   LIBRARY_OUTPUT_NAME "vld_x64.lib"
+                   #COMPILE_PDB_NAME "vld_x64"
+    )
+endif()
+
 target_include_directories(vld PRIVATE setup)
 target_compile_definitions(vld PRIVATE UNICODE _UNICODE)
 
